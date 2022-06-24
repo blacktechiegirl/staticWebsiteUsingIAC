@@ -1,0 +1,56 @@
+service: serverlessStaticWebsite
+frameworkVersion: '3'
+
+provider: 
+  name: aws
+  runtime: nodejs16.x
+  stage: dev
+  region: us-east-1
+  profile: serverlessQueen
+
+plugins: 
+  - serverless-s3-sync
+
+custom:
+  sitename: btgserverlessbucket
+  s3Sync:
+    - bucketName: ${self:custom.sitename}
+      localDir: src
+
+resources: 
+  Resources: 
+    BtgServerlessBucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: ${self:custom.sitename}
+        AccessControl: PublicRead
+        WebsiteConfiguration:
+          IndexDocument: index.html
+
+    BtgServerlessPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: BtgServerlessBucket
+        PolicyDocument:
+          Statement:
+            - Sid: PublicReadGetObject
+              Effect: Allow
+              Principal: "*"
+              Action:
+              - s3:GetObject
+              Resource:
+                Fn::Join: [
+                  "", [
+                    "arn:aws:s3:::",
+                    {
+                      "Ref": "BtgServerlessBucket"
+                    },
+                    "/*"
+                  ]
+                ]
+              
+
+    
+
+
