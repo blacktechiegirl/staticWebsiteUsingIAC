@@ -13,6 +13,7 @@ jobs:
         with:
           node-version: '14'
       - run: npm install
+      - run: export AWS_PROFILE=serverlessQueen
       - uses: serverless/github-action@master
         with:
           args: deploy
