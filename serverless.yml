@@ -6,7 +6,6 @@ provider:
   runtime: nodejs16.x
   stage: dev
   region: us-east-1
-  profile: serverlessQueen
 
 plugins: 
   - serverless-s3-sync
