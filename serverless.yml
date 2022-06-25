@@ -39,7 +39,7 @@ resources:
               Principal: "*"
               Action:
               - s3:GetObject
-              Resource: arn:aws:s3:::${self:custom.sitename}
+              Resource: arn:aws:s3:::${self:custom.sitename}/*
                   
     # CloudFrontDistribution:
     #         Type: AWS::CloudFront::Distribution
