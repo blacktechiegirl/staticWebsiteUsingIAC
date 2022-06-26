@@ -1,0 +1,27 @@
+body{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+ul{
+    
+    margin: 10px 0;
+}
+li{
+    padding: 10px;
+}
+li:hover{
+    background-color: #E9D5CA;
+    border-radius: 5px;
+    color: black;
+}
+
+button{
+    padding: 10px;
+    border: 1px solid #363062;
+    margin: 5px;
+    border-radius: 5px;
+    background: transparent;
+    cursor: pointer;
+
+}
