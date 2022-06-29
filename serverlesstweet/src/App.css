@@ -2,6 +2,11 @@ body{
     margin: 0;
     font-family: 'Poppins', sans-serif;
 }
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;	
+}
 
 ul{
     
@@ -16,7 +21,7 @@ li:hover{
     color: black;
 }
 
-button{
+.viewbutton{
     padding: 10px;
     border: 1px solid #363062;
     margin: 5px;
@@ -25,3 +30,78 @@ button{
     cursor: pointer;
 
 }
+
+.loginCard{
+    /* box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.07); */
+    width: 35%;
+    height: 500px;
+    padding: 5%;
+    background-color: #fff;
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+.email{
+    margin: 20px 0
+}
+
+.email label{
+   display: block;
+   margin: 10px 0;
+}
+
+.email input{
+    padding: 10px ;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(199, 195, 195)
+ }
+
+.password{
+    margin: 20px 0
+}
+
+.password label{
+    margin: 10px 0;
+    display: block;
+ }
+
+ .password input{
+    padding: 10px ;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid rgb(199, 195, 195)
+ }
+
+ .loginButton button{
+    width: 100%;
+    background-color: #363062;
+    color: #fff;
+    font-size: 18px;
+    margin: 20px 0;
+    border-radius: 10px;
+    padding: 10px;
+    height: 10%;
+    border: none;
+
+ }
+
+ .loadingButton button{
+    width: 100%;
+    background-color: #363062;
+    border: none;
+    font-size: 18px;
+    margin: '20px 0';
+    border-radius: 10px;
+
+
+ }
+
+ .butloadingButton button{
+    width: 100%;
+    background-color: #363062;
+    border: none;
+    font-size: 18px;
+    border-radius: 10px;
+
+
+ }
