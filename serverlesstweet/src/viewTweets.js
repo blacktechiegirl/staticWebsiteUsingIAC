@@ -19,16 +19,15 @@ const App = () => {
   const [postData, setPostData] = useState([])
   const [loading, setLoading] = useState(true)
   const [buttonLoad, setButtonLoad] = useState(false)
-  const [userId, setUserId] = useState('')
   const [modal, setModal] = useState(false)
   const [userTweet, setUserTweet] = useState('')
   
 
   const userName = localStorage.getItem('userName')
+  const userId = localStorage.getItem('userId')
 
   useEffect(() => {
     const aminat = async () => {
-      setUserId(localStorage.getItem('userId'))
       const data = await axios.get(`https://fw209u8orf.execute-api.us-east-1.amazonaws.com/posts`)
       if (data) {
         if (parseInt(data.status) === 200) {
@@ -208,7 +207,9 @@ const App = () => {
     }
   }
 
+  const createComment = async() =>{
 
+  }
 
 
   return (
@@ -278,7 +279,7 @@ const App = () => {
                   <button className='viewbutton'
                     onClick={() => viewComments(item.postId)}
                   >view comments</button>
-                  <button className='viewbutton'>Add a comment</button>
+                  <button onClick={() => createComment(item.postId)} className='viewbutton'>Add a comment</button>
                 </div>
               </div>
               {viewComment && viewCommentId == item.id ?

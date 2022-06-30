@@ -25,7 +25,7 @@ resources:
         AccessControl: PublicRead
         WebsiteConfiguration:
           IndexDocument: index.html
-          ErrorDocument: error.html
+          ErrorDocument: index.html
 
     BtgServerlessPolicy:
       Type: AWS::S3::BucketPolicy
