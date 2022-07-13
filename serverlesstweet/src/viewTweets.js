@@ -468,6 +468,7 @@ const App = () => {
             <div>
               <div
                 style={{
+                  minWidth: '300px',
                   width: "50%",
                   margin: "50px auto",
                   backgroundColor: "#E9D5CA",

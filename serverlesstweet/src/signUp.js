@@ -46,7 +46,7 @@ const SignUp = () => {
    console.log(email,password)      
 
     return (
-        <div style={{ display: 'flex',height: '100vh', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(250,251,251)' }}
+        <div className = 'contain' style={{ display: 'flex',height: '100vh', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(250,251,251)' }}
         >
             <div className='loginCard' style={{ height: '600px', marginTop: '50px'}}>
                 <form onSubmit={onSubmit}>

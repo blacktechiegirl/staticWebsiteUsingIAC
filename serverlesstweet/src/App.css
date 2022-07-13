@@ -31,11 +31,25 @@ li:hover{
 
 }
 
-.loginCard{
+.contain{
+    width: 100%;
+    height: 100%;
+    background-image: url(./assets/Moon.svg);
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
 
+}
+
+
+.loginCard{
+    max-width: 80%;
     height: 500px;
     padding: 30px;
+    border-radius: 5px;
     background-color: #fff;
+    font-family: 'montserrat';
+    
     box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
