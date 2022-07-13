@@ -48,9 +48,9 @@ const SignUp = () => {
     return (
         <div className = 'contain' style={{ display: 'flex',height: '100vh', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(250,251,251)' }}
         >
-            <div className='loginCard' style={{ height: '600px', marginTop: '50px'}}>
+            <div className='loginCard' style={{ height: '450px'}}>
                 <form onSubmit={onSubmit}>
-                    <h2>Welcome to Serverless Tweets</h2>
+                    <h2 style={{textAlign: 'center'}}>Sign Up</h2>
                     <div className='email'>
                         <label >UserName</label>
                         <input
@@ -65,12 +65,6 @@ const SignUp = () => {
                     </div>
                     <div className='password'>
                         <label>Enter Password</label>
-                        <input
-                        value={password}
-                        onChange={(event) => setPassword(event.target.value)}></input>
-                    </div>
-                    <div className='password'>
-                        <label>Confirm Password</label>
                         <input
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}></input>

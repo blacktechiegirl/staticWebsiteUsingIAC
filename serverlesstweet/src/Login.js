@@ -88,9 +88,9 @@ const Login = () => {
         backgroundColor: "rgb(250,251,251)",
       }}
     >
-      <div className="loginCard" style={{ marginTop: "50px" }}>
+      <div className="loginCard" >
         <form onSubmit={loginUser}>
-          <h2 style={{ marginBottom: "10px" }}>Welcome to Serverless Tweets</h2>
+          <h3 style={{ marginBottom: "10px", textAlign: 'center' }}>Welcome to Serverless Tweets</h3>
           <p>
             New to Serverless Tweet?{" "}
             <b
