@@ -10,7 +10,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Paper from "@mui/material/Paper";
 import { v4 as uuidv4 } from "uuid";
 import CircularProgress from "@mui/material/CircularProgress";
-import { faPen, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const App = () => {
@@ -113,17 +113,13 @@ const App = () => {
     }
   };
 
-
   //delete my post
 
-  const deleteMyPost = async(postId,user) => {
+  const deleteMyPost = async (postId, user) => {
     const res = await axios.delete(
-      `https://fw209u8orf.execute-api.us-east-1.amazonaws.com/post/${postId}/${user}`,
-      
+      `https://fw209u8orf.execute-api.us-east-1.amazonaws.com/post/${postId}/${user}`
     );
-  }
-
-
+  };
 
   //View all my tweets
   const viewMyTweets = async () => {
@@ -193,398 +189,416 @@ const App = () => {
 
   return (
     <div style={{ margin: 0 }}>
-      <div
-        style={{
-          margin: 0,
-          display: "flex",
-          backgroundColor: "#363062",
-          color: "#fff",
-          justifyContent: "space-between",
-        }}
-      >
-        <p
-          style={{
-            fontFamily: "Smooch",
-            fontSize: "26px",
-            margin: "15px 150px",
-          }}
-        >
-          Serverless Tweet
-        </p>
-        <ul
-          style={{
-            listStyle: "none",
-            width: "25%",
-            display: "flex",
-            justifyContent: "space-between",
-            marginRight: "150px",
-            fontFamily: "Sora",
-          }}
-        >
-          <li
-            style={{ cursor: "pointer" }}
-            onClick={() => {
-              setModal(true);
+      <nav class="navbar navbar-expand-lg navbar-dark tweetnavbar px-md-5 ">
+        <div class="container">
+          <p
+            style={{
+              fontFamily: "Smooch",
+              fontSize: "28px",
+              color: '#fff',
+              margin: 0
             }}
           >
-            Post new tweet
-          </li>
+            Serverless Tweet
+          </p>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span>
+              <FontAwesomeIcon icon={faBars}/>
+            </span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto ">
+              <li
+                className="nav-item mx-2"
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setModal(true);
+                }}
+              >
+                <a class="nav-link active" aria-current="page" href="#">
+                  Post new tweet
+                </a>
+              </li>
+
+              {myTweets ? (
+                <li
+                  className="nav-item mx-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    viewAllTweets();
+                  }}
+                >
+                  <a class="nav-link active" aria-current="page" href="#">
+                    View All Tweets
+                  </a>
+                </li>
+              ) : (
+                <li
+                  className="nav-item"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    viewMyTweets();
+                  }}
+                >
+                  <a class="nav-link active" aria-current="page" href="#">
+                    View my Tweets
+                  </a>
+                </li>
+              )}
+            </ul>
+          </div>
+        </div>
+      </nav>
+     
+      <div className="tweetwidth">
+        <div style={{ margin: "50px auto" }}>
           {myTweets ? (
-            <li
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                viewAllTweets();
-              }}
-            >
-              View All Tweets
-            </li>
+            <h2>My Tweets</h2>
           ) : (
-            <li
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                viewMyTweets();
-              }}
-            >
-              View my Tweets
-            </li>
+            <h2 style={{ margin: "0 auto" }}>
+              Hey {userName}, What's Happening ?
+            </h2>
           )}
-        </ul>
-      </div>
-      <div style={{ width: "52%", margin: "50px auto" }}>
-        {myTweets ? (
-          <h2>My Tweets</h2>
+        </div>
+
+        <Modal
+          open={modal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            style={{
+              backgroundColor: "#fff",
+              height: "400px",
+              padding: "20px",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{ display: "flex", justifyContent: "end" }}
+              onClick={() => setModal(false)}
+            >
+              <h3
+                style={{
+                  cursor: "pointer",
+                  fontSize: "18px",
+                  color: "#d9d9d9",
+                }}
+              >
+                x
+              </h3>
+            </div>
+            <div>
+              <div style={{ textAlign: "center", margin: "10px" }}>
+                <h3>Create a New Post</h3>
+              </div>
+              <label style={{ margin: "10px" }}>What's Happening ?</label>
+              <textarea
+                value={userTweet}
+                onChange={(event) => setUserTweet(event.target.value)}
+                style={{
+                  fontSize: "18px",
+                  padding: "10px",
+                  width: "96%",
+                  height: "200px",
+                  margin: "10px",
+                  borderRadius: "8px",
+                  border: "1px solid #D9D9D9",
+                }}
+              ></textarea>
+            </div>
+            {buttonLoad ? (
+              <div
+                className="butloadingButton"
+                style={{
+                  width: "20%",
+                  position: "absolute",
+                  bottom: 0,
+                  right: "20px",
+                  margin: 0,
+                }}
+              >
+                <button type="submit">
+                  <CircularProgress style={{ width: "30px", color: "#fff" }} />
+                </button>
+                `
+              </div>
+            ) : (
+              <div
+                className="loginButton"
+                style={{
+                  width: "20%",
+                  position: "absolute",
+                  bottom: "10px",
+                  right: "20px",
+                }}
+              >
+                <button
+                  className="loginButton"
+                  onClick={() => {
+                    createPost();
+                  }}
+                >
+                  Tweet
+                </button>
+              </div>
+            )}
+          </Box>
+        </Modal>
+
+        <Modal
+          open={commentModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            style={{
+              backgroundColor: "#fff",
+              height: "400px",
+              padding: "10px",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{ display: "flex", justifyContent: "end" }}
+              onClick={() => setCommentModal(false)}
+            >
+              <h3
+                style={{
+                  cursor: "pointer",
+                  fontSize: "18px",
+                  color: "#d9d9d9",
+                }}
+              >
+                x
+              </h3>
+            </div>
+            <div>
+              <div style={{ textAlign: "center", margin: "10px" }}>
+                <h3>Drop a Comment</h3>
+              </div>
+              <textarea
+                value={userComment}
+                onChange={(event) => setUserComment(event.target.value)}
+                style={{
+                  fontSize: "18px",
+                  padding: "10px",
+                  width: "96%",
+                  height: "200px",
+                  margin: "10px",
+                  borderRadius: "8px",
+                  border: "1px solid #D9D9D9",
+                }}
+              ></textarea>
+            </div>
+            {buttonLoad ? (
+              <div
+                className="butloadingButton"
+                style={{
+                  width: "20%",
+                  position: "absolute",
+                  bottom: 0,
+                  right: "20px",
+                  margin: 0,
+                }}
+              >
+                <button type="submit">
+                  <CircularProgress style={{ width: "30px", color: "#fff" }} />
+                </button>
+                `
+              </div>
+            ) : (
+              <div
+                className="loginButton"
+                style={{
+                  width: "20%",
+                  position: "absolute",
+                  bottom: "10px",
+                  right: "20px",
+                }}
+              >
+                <button
+                  className="loginButton"
+                  onClick={() => {
+                    postComment();
+                  }}
+                >
+                  Tweet
+                </button>
+              </div>
+            )}
+          </Box>
+        </Modal>
+
+        {loading ? (
+          <>
+            <div style={{ margin: "50px auto" }}>
+              <Box sx={{ height: 600 }}>
+                <Skeleton
+                  animation="wave"
+                  width={"100%"}
+                  height={300}
+                  style={{ marginBottom: -40 }}
+                />
+                <Skeleton
+                  animation="wave"
+                  width={"100%"}
+                  height={300}
+                  style={{ marginBottom: -40 }}
+                />
+                <Skeleton
+                  animation="wave"
+                  width={"100%"}
+                  height={300}
+                  style={{ marginBottom: -40 }}
+                />
+                <Skeleton
+                  animation="wave"
+                  width={"100%"}
+                  height={300}
+                  style={{ marginBottom: -40 }}
+                />
+              </Box>
+            </div>
+          </>
         ) : (
-          <h2 style={{ margin: "0" }}>Hey {userName}, What's Happening ?</h2>
+          postData.map((item) => {
+            return (
+              <div>
+                <div className="tweetsCard">
+                  <div
+                    style={{ display: "flex", justifyContent: "space-between" }}
+                  >
+                    <h4>{item.userName}</h4>
+                    {myTweets ? (
+                      <div>
+                        <FontAwesomeIcon
+                          label="View Project"
+                          style={{
+                            fontSize: "15px",
+                            color: "#363062",
+                            margin: "5px",
+                          }}
+                          icon={faPen}
+                        />
+                        <FontAwesomeIcon
+                          label="View Project"
+                          onClick={() => {
+                            deleteMyPost(item.postId, item.userId);
+                          }}
+                          style={{
+                            fontSize: "15px",
+                            color: "#363062",
+                            margin: "5px",
+                            cursor: "pointer",
+                          }}
+                          icon={faTrash}
+                        />
+                      </div>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+
+                  <p style={{ margin: "10px 0" }}>{item.content}</p>
+                  <div
+                    className='row'
+                    style={{ display: "row"}}
+                  >
+                    <div className= 'col-lg-4 col-md-12 ' style={{ marginTop: "10px" }}>
+                      <p>
+                        <b>comments:</b> {item.xyz}
+                      </p>
+                    </div>
+                    <div className= 'col-lg-8  col-md-12 d-flex justify-content-end'>
+                      {viewComment ? (
+                        <button
+                          className="viewbutton"
+                          onClick={() => setViewComment(false)}
+                        >
+                          close comments
+                        </button>
+                      ) : (
+                        <button
+                          className="viewbutton"
+                          onClick={() => viewComments(item.postId)}
+                        >
+                          view comments
+                        </button>
+                      )}
+                      <button
+                        onClick={() => createComment(item.postId, item.userId)}
+                        className="viewbutton"
+                      >
+                        Add a comment
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                {viewComment && viewCommentId == item.postId ? (
+                  item.xyz ? (
+                    <div
+                      style={{
+                        width: "50%",
+                        margin: "0 auto",
+                        backgroundColor: "#fff",
+                        boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.07)",
+                        padding: "0 15px",
+                      }}
+                    >
+                      <p>Comments</p>
+                      {commentData.map((item) => {
+                        return (
+                          <div>
+                            <hr />
+                            <h5>{item.userName}</h5>
+                            <p>{item.comment}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        width: "50%",
+                        margin: "0 auto",
+                        backgroundColor: "#fff",
+                        boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.07)",
+                        padding: "15px",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <h4>No comments</h4>
+                    </div>
+                  )
+                ) : (
+                  ""
+                )}
+              </div>
+            );
+          })
         )}
       </div>
-
-      <Modal
-        open={modal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          style={{
-            backgroundColor: "#fff",
-            width: "40%",
-            height: "400px",
-            padding: "20px",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{ display: "flex", justifyContent: "end" }}
-            onClick={() => setModal(false)}
-          >
-            <h3
-              style={{ cursor: "pointer", fontSize: "18px", color: "#d9d9d9" }}
-            >
-              x
-            </h3>
-          </div>
-          <div>
-            <div style={{ textAlign: "center", margin: "10px" }}>
-              <h3>Create a New Post</h3>
-            </div>
-            <label style={{ margin: "10px" }}>What's Happening ?</label>
-            <textarea
-              value={userTweet}
-              onChange={(event) => setUserTweet(event.target.value)}
-              style={{
-                fontSize: "18px",
-                padding: "10px",
-                width: "96%",
-                height: "200px",
-                margin: "10px",
-                borderRadius: "8px",
-                border: "1px solid #D9D9D9",
-              }}
-            ></textarea>
-          </div>
-          {buttonLoad ? (
-            <div
-              className="butloadingButton"
-              style={{
-                width: "20%",
-                position: "absolute",
-                bottom: 0,
-                right: "20px",
-                margin: 0,
-              }}
-            >
-              <button type="submit">
-                <CircularProgress style={{ width: "30px", color: "#fff" }} />
-              </button>
-              `
-            </div>
-          ) : (
-            <div
-              className="loginButton"
-              style={{
-                width: "20%",
-                position: "absolute",
-                bottom: "10px",
-                right: "20px",
-              }}
-            >
-              <button
-                className="loginButton"
-                onClick={() => {
-                  createPost();
-                }}
-              >
-                Tweet
-              </button>
-            </div>
-          )}
-        </Box>
-      </Modal>
-
-      <Modal
-        open={commentModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          style={{
-            backgroundColor: "#fff",
-            width: "40%",
-            height: "400px",
-            padding: "20px",
-            position: "relative",
-          }}
-        >
-          <div
-            style={{ display: "flex", justifyContent: "end" }}
-            onClick={() => setCommentModal(false)}
-          >
-            <h3
-              style={{ cursor: "pointer", fontSize: "18px", color: "#d9d9d9" }}
-            >
-              x
-            </h3>
-          </div>
-          <div>
-            <div style={{ textAlign: "center", margin: "10px" }}>
-              <h3>Drop a Comment</h3>
-            </div>
-            <textarea
-              value={userComment}
-              onChange={(event) => setUserComment(event.target.value)}
-              style={{
-                fontSize: "18px",
-                padding: "10px",
-                width: "96%",
-                height: "200px",
-                margin: "10px",
-                borderRadius: "8px",
-                border: "1px solid #D9D9D9",
-              }}
-            ></textarea>
-          </div>
-          {buttonLoad ? (
-            <div
-              className="butloadingButton"
-              style={{
-                width: "20%",
-                position: "absolute",
-                bottom: 0,
-                right: "20px",
-                margin: 0,
-              }}
-            >
-              <button type="submit">
-                <CircularProgress style={{ width: "30px", color: "#fff" }} />
-              </button>
-              `
-            </div>
-          ) : (
-            <div
-              className="loginButton"
-              style={{
-                width: "20%",
-                position: "absolute",
-                bottom: "10px",
-                right: "20px",
-              }}
-            >
-              <button
-                className="loginButton"
-                onClick={() => {
-                  postComment();
-                }}
-              >
-                Tweet
-              </button>
-            </div>
-          )}
-        </Box>
-      </Modal>
-
-      {loading ? (
-        <>
-          <div style={{ width: "50%", margin: "50px auto" }}>
-            <Box sx={{ height: 600 }}>
-              <Skeleton
-                animation="wave"
-                width={800}
-                height={300}
-                style={{ marginBottom: -40 }}
-              />
-              <Skeleton
-                animation="wave"
-                width={800}
-                height={300}
-                style={{ marginBottom: -40 }}
-              />
-              <Skeleton
-                animation="wave"
-                width={800}
-                height={300}
-                style={{ marginBottom: -40 }}
-              />
-              <Skeleton
-                animation="wave"
-                width={800}
-                height={300}
-                style={{ marginBottom: -40 }}
-              />
-            </Box>
-          </div>
-        </>
-      ) : (
-        postData.map((item) => {
-          return (
-            <div>
-              <div
-                style={{
-                  minWidth: '300px',
-                  width: "50%",
-                  margin: "50px auto",
-                  backgroundColor: "#E9D5CA",
-                  borderRadius: "5px",
-                  boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.07)",
-                  padding: "15px",
-                }}
-              >
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <h4>{item.userName}</h4>
-                  {myTweets? 
-                  <div>
-                    <FontAwesomeIcon
-                      label="View Project"
-                      style={{
-                        fontSize: "15px",
-                        color: "#363062",
-                        margin: "5px",
-                      }}
-                      icon={faPen}
-                    />
-                    <FontAwesomeIcon
-                      label="View Project"
-                      onClick={()=>{deleteMyPost(item.postId,item.userId)}}
-                      style={{
-                        fontSize: "15px",
-                        color: "#363062",
-                        margin: "5px",
-                        cursor: 'pointer'
-                      }}
-                      icon={faTrash}
-                    />
-                  </div>: ''}
-                </div>
-
-                <p style={{ margin: "10px 0" }}>{item.content}</p>
-                <div
-                  style={{ display: "flex", justifyContent: "space-between" }}
-                >
-                  <div style={{ marginTop: "10px" }}>
-                    <h5>
-                      <b>comments:</b> {item.xyz}
-                    </h5>
-                  </div>
-                  <div>
-                    {viewComment ? (
-                      <button
-                        className="viewbutton"
-                        onClick={() => setViewComment(false)}
-                      >
-                        close comments
-                      </button>
-                    ) : (
-                      <button
-                        className="viewbutton"
-                        onClick={() => viewComments(item.postId)}
-                      >
-                        view comments
-                      </button>
-                    )}
-                    <button
-                      onClick={() => createComment(item.postId, item.userId)}
-                      className="viewbutton"
-                    >
-                      Add a comment
-                    </button>
-                  </div>
-                </div>
-              </div>
-              {viewComment && viewCommentId == item.postId ? (
-                item.xyz ? (
-                  <div
-                    style={{
-                      width: "50%",
-                      margin: "0 auto",
-                      backgroundColor: "#fff",
-                      boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.07)",
-                      padding: "0 15px",
-                    }}
-                  >
-                    <p>Comments</p>
-                    {commentData.map((item) => {
-                      return (
-                        <div>
-                          <hr />
-                          <h5>{item.userName}</h5>
-                          <p>{item.comment}</p>
-                        </div>
-                      );
-                    })}
-                  </div>
-                ) : (
-                  <div
-                    style={{
-                      width: "50%",
-                      margin: "0 auto",
-                      backgroundColor: "#fff",
-                      boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.07)",
-                      padding: "15px",
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                    }}
-                  >
-                    <h4>No comments</h4>
-                  </div>
-                )
-              ) : (
-                ""
-              )}
-            </div>
-          );
-        })
-      )}
     </div>
   );
 };
