@@ -63,6 +63,11 @@ li:hover {
   margin: 0 auto;
 }
 
+.tweetdate{
+    font-size: '5px';
+    color: 'grey';
+}
+
 .loginCard {
   max-width: 80%;
   min-width: 370px;
@@ -135,29 +140,11 @@ li:hover {
 }
 
 @media screen and (max-width: 480px) {
-  h1 {
-    font-size: 1.5em;
-  }
-  h2 {
-    font-size: 1.1em;
-  }
-  h3 {
-    font-size: 1.2em;
-  }
-  h4 {
-    font-size: 0.8em;
-  }
-  h5{
-    font-size: 0.6em;
-  }
 
-  p {
-    font-size: 0.8em;
-  }
 }
 
 @media screen and (max-width: 576px) {
-    
+  
     
   .tweetwidth {
     width: 90%;

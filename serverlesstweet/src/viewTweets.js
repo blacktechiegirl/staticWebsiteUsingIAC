@@ -12,10 +12,12 @@ import { v4 as uuidv4 } from "uuid";
 import CircularProgress from "@mui/material/CircularProgress";
 import { faPen, faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { format } from "timeago.js";
 
 const App = () => {
   const [postData, setPostData] = useState([]);
   const [commentData, setCommentData] = useState([]);
+  const [commentLoader, setCommentLoader] = useState(false);
   const [loading, setLoading] = useState(true);
   const [buttonLoad, setButtonLoad] = useState(false);
   const [modal, setModal] = useState(false);
@@ -57,6 +59,7 @@ const App = () => {
 
   // View Comments
   const viewComments = async (id) => {
+    setCommentLoader(true)
     setViewComment(true);
     setViewCommentId(id);
 
@@ -65,6 +68,7 @@ const App = () => {
     );
     if (data) {
       if (parseInt(data.status) === 200) {
+        setCommentLoader(false)
         setCommentData(data.data.Items);
         console.log(data.data.Items);
         setLoading(false);
@@ -218,7 +222,7 @@ const App = () => {
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto ">
               <li
-                className="nav-item mx-2"
+                className="nav-item mx-lg-4 "
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   setModal(true);
@@ -231,7 +235,7 @@ const App = () => {
 
               {myTweets ? (
                 <li
-                  className="nav-item mx-2"
+                  className="nav-item  "
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     viewAllTweets();
@@ -264,9 +268,9 @@ const App = () => {
           {myTweets ? (
             <h2>My Tweets</h2>
           ) : (
-            <h2 style={{ margin: "0 auto" }}>
+            <p style={{ margin: "0 auto", fontSize: '2vw' }}>
               Hey {userName}, What's Happening ?
-            </h2>
+            </p>
           )}
         </div>
 
@@ -373,6 +377,7 @@ const App = () => {
           <Box
             style={{
               backgroundColor: "#fff",
+              width: '600px',
               height: "400px",
               padding: "10px",
               position: "relative",
@@ -515,10 +520,10 @@ const App = () => {
                         />
                       </div>
                     ) : (
-                      ""
+                      <i><p className="tweetdate">{format(item.date, "en_US")}</p></i>
                     )}
                   </div>
-
+                  
                   <p style={{ margin: "10px 0" }}>{item.content}</p>
                   <div
                     className='row'
@@ -535,26 +540,27 @@ const App = () => {
                           className="viewbutton"
                           onClick={() => setViewComment(false)}
                         >
-                          close comments
+                         <p style={{color: 'black'}}>close comments</p> 
                         </button>
                       ) : (
                         <button
                           className="viewbutton"
                           onClick={() => viewComments(item.postId)}
                         >
-                          <p>view comments</p>
+                          <p style={{color: 'black'}}>view comments</p>
                         </button>
                       )}
                       <button
                         onClick={() => createComment(item.postId, item.userId)}
                         className="viewbutton"
                       >
-                        <p>Add a comment</p>
+                        <p style={{color: 'black'}}>Add a comment</p>
                       </button>
                     </div>
                   </div>
                 </div>
                 {viewComment && viewCommentId == item.postId ? (
+                  commentLoader? <div className= 'text-center'><CircularProgress style={{ width: "30px", color: "#363062" }} /></div>:
                   item.xyz ? (
                     <div
                       style={{
