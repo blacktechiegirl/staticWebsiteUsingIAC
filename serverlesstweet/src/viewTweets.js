@@ -25,6 +25,7 @@ const App = () => {
   const [userTweet, setUserTweet] = useState("");
   const [userComment, setUserComment] = useState("");
   const [myTweets, setMyTweets] = useState(false);
+  const [myTweetsLoader, setMyTweetsLoader] = useState(false);
   const [viewComment, setViewComment] = useState();
   const [viewCommentId, setViewCommentId] = useState();
   const [commentPostId, setCommentPostId] = useState("");
@@ -128,6 +129,7 @@ const App = () => {
 
   //View all my tweets
   const viewMyTweets = async () => {
+    setMyTweetsLoader(true)
     setMyTweets(true);
     const data = await axios.get(
       `https://fw209u8orf.execute-api.us-east-1.amazonaws.com/post/${userId}`
@@ -135,6 +137,7 @@ const App = () => {
     if (data) {
       if (parseInt(data.status) === 200) {
         setPostData(data.data.Items);
+        setMyTweetsLoader(false)
         setLoading(false);
       } else if (parseInt(data.status) === 400) {
         console.log("An error occured");
@@ -233,7 +236,8 @@ const App = () => {
                 </a>
               </li>
 
-              {myTweets ? (
+              {myTweets ?
+              myTweetsLoader? <div></div>: (
                 <li
                   className="nav-item  "
                   style={{ cursor: "pointer" }}
@@ -493,11 +497,11 @@ const App = () => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <h4>{item.userName}</h4>
+                    <div className='d-flex'>  <div className='tweetinitials'><p>{item.userName[0].toUpperCase()}</p></div><p>{item.userName}</p></div>
                     {myTweets ? (
                       <div>
                         <FontAwesomeIcon
-                          label="View Project"
+                          label="View Project" 
                           style={{
                             fontSize: "15px",
                             color: "#363062",

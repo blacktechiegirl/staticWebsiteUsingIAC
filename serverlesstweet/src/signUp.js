@@ -48,7 +48,7 @@ const SignUp = () => {
     return (
         <div className = 'contain' style={{ display: 'flex',height: '100vh', justifyContent: 'center', alignItems: 'center', backgroundColor: 'rgb(250,251,251)' }}
         >
-            <div className='loginCard' style={{ height: '450px'}}>
+            <div className='signupCard' >
                 <form onSubmit={onSubmit}>
                     <h2 style={{textAlign: 'center'}}>Sign Up</h2>
                     <div className='email'>
