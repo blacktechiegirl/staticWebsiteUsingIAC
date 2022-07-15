@@ -1,174 +1,168 @@
-body{
-    margin: 0;
-    font-family: 'Sora', sans-serif;
+body {
+  margin: 0;
+  font-family: "Sora" !important;
 }
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;	
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-ul{
-    
-  
+ul {
 }
-li{
-    
+li {
 }
-li:hover{
-    background-color: #E9D5CA;
-    border-radius: 5px;
-    color: black;
+li:hover {
+  background-color: #e9d5ca;
+  border-radius: 5px;
+  color: black;
 }
 
-.viewbutton{
-    padding: 10px;
-    border: 1px solid #363062;
-    margin: 5px;
-    border-radius: 5px;
-    background: transparent;
-    cursor: pointer;
-
+.viewbutton {
+  padding: 10px;
+  border: 1px solid #363062;
+  color: 'black';
+  margin: 5px;
+  border-radius: 5px;
+  background: transparent;
+  cursor: pointer;
 }
 
-.contain{
-    width: 100%;
-    height: 100%;
-    background-image: url(./assets/Moon.svg);
-    overflow: hidden !important;
-    background-size: cover;
-    background-repeat: no-repeat;
-
+.contain {
+  width: 100%;
+  height: 100%;
+  background-image: url(./assets/Moon.svg);
+  overflow: hidden !important;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.tweetnavbar{
-    margin: 0;
-    
-    background-color: #363062;
-    color: #fff,
-    
+.tweetnavbar {
+  margin: 0;
+
+  background-color: #363062;
+  color: #fff;
 }
 
-.tweetsCard{
-    /* max-width: 700px;
+.tweetsCard {
+  /* max-width: 700px;
     width: 100%; */
-    margin: 50px auto; 
-    background-color: #E9D5CA;
-    border-radius: 5px;
-    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.07);
-    padding: 15px;
+  margin: 50px auto;
+  background-color: #e9d5ca;
+  border-radius: 5px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.07);
+  padding: 15px;
 }
 
-.tweetwidth{
-    width: 60%;
-    margin: 0 auto;
-    
+.tweetwidth {
+  width: 60%;
+  margin: 0 auto;
 }
 
-
-.loginCard{
-    max-width: 80%;
-    min-width: 370px;
-    height: 400px;
-    padding: 30px;
-    border-radius: 5px;
-    background-color: #fff;
-    font-family: 'montserrat';
-    
-    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+.loginCard {
+  max-width: 80%;
+  min-width: 370px;
+  height: 400px;
+  padding: 30px;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
 }
 
-.email{
-    margin: 20px 0
+.email {
+  margin: 20px 0;
 }
 
-.email label{
-   display: block;
-   margin: 10px 0;
+.email label {
+  display: block;
+  margin: 10px 0;
 }
 
-.email input{
-    padding: 10px ;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid rgb(199, 195, 195)
- }
-
-.password{
-    margin: 20px 0
+.email input {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgb(199, 195, 195);
 }
 
-.password label{
-    margin: 10px 0;
-    display: block;
- }
+.password {
+  margin: 20px 0;
+}
 
- .password input{
-    padding: 10px ;
-    width: 100%;
-    border-radius: 5px;
-    border: 1px solid rgb(199, 195, 195)
- }
+.password label {
+  margin: 10px 0;
+  display: block;
+}
 
- .loginButton button{
-    width: 100%;
-    background-color: #363062;
-    color: #fff;
-    font-size: 18px;
-    margin: 20px 0;
-    border-radius: 10px;
-    padding: 10px;
-    height: 10%;
-    border: none;
+.password input {
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  border: 1px solid rgb(199, 195, 195);
+}
 
- }
+.loginButton button {
+  width: 100%;
+  background-color: #363062;
+  color: #fff;
+  font-size: 18px;
+  margin: 20px 0;
+  border-radius: 10px;
+  padding: 10px;
+  height: 10%;
+  border: none;
+}
 
- .loadingButton button{
-    width: 100%;
-    background-color: #363062;
-    border: none;
-    font-size: 18px;
-    margin: '20px 0';
-    border-radius: 10px;
+.loadingButton button {
+  width: 100%;
+  background-color: #363062;
+  border: none;
+  font-size: 18px;
+  margin: "20px 0";
+  border-radius: 10px;
+}
 
+.butloadingButton button {
+  width: 100%;
+  background-color: #363062;
+  border: none;
+  font-size: 18px;
+  border-radius: 10px;
+}
 
- }
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.5em;
+  }
+  h2 {
+    font-size: 1.1em;
+  }
+  h3 {
+    font-size: 1.2em;
+  }
+  h4 {
+    font-size: 0.6em;
+  }
+  h5{
+    font-size: 0.6em;
+  }
 
- .butloadingButton button{
-    width: 100%;
-    background-color: #363062;
-    border: none;
-    font-size: 18px;
-    border-radius: 10px;
-
-
- }
-
- @media screen and (max-width: 480px) {
-    h1{font-size: 1.5em; }
-    h2{ font-size: 1.1em; }
-    h3 { font-size: 1.2em;
-    }
-    h4{
-        font-size: 1em;
-    }
-
-    p{
-        font-size: 0.8em;
-    }
-
+  p {
+    font-size: 0.8em;
+  }
 }
 
 @media screen and (max-width: 576px) {
-    .tweetwidth{
-        width: 90%;
-    }
+  .tweetwidth {
+    width: 90%;
+  }
+  .viewbutton{
+    padding: 5px;
+  }
 }
 
 @media screen and (min-width: 576px) and (max-width: 900px) {
-    .tweetwidth{
-        width: 90%;
-    }
+  .tweetwidth {
+    width: 90%;
+  }
 }
-
-
