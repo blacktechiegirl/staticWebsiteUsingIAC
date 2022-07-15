@@ -21,12 +21,16 @@ li:hover {
 .viewbutton {
   padding: 10px;
   border: 1px solid #363062;
-  color: 'black';
+  color: 'black' !important;
   margin: 5px;
   border-radius: 5px;
   background: transparent;
   cursor: pointer;
 }
+
+.viewbutton p {
+    margin: 0;
+  }
 
 .contain {
   width: 100%;
@@ -141,7 +145,7 @@ li:hover {
     font-size: 1.2em;
   }
   h4 {
-    font-size: 0.6em;
+    font-size: 0.8em;
   }
   h5{
     font-size: 0.6em;
@@ -153,11 +157,16 @@ li:hover {
 }
 
 @media screen and (max-width: 576px) {
+    
+    
   .tweetwidth {
     width: 90%;
   }
   .viewbutton{
     padding: 5px;
+  }
+  .viewbutton p {
+    margin: 0;
   }
 }
 

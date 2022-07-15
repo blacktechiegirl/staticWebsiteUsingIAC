@@ -29,7 +29,8 @@ const App = () => {
   const [allData, setAllData] = useState([]);
   const [commentUserId, setCommentUserId] = useState("");
 
-  const userName = localStorage.getItem("userName");
+  const username = localStorage.getItem("userName");
+  const userName= username.split(' ')[0]
   const userId = localStorage.getItem("userId");
 
   ///Pull all post data on page load
@@ -541,14 +542,14 @@ const App = () => {
                           className="viewbutton"
                           onClick={() => viewComments(item.postId)}
                         >
-                          view comments
+                          <p>view comments</p>
                         </button>
                       )}
                       <button
                         onClick={() => createComment(item.postId, item.userId)}
                         className="viewbutton"
                       >
-                        Add a comment
+                        <p>Add a comment</p>
                       </button>
                     </div>
                   </div>
