@@ -90,7 +90,7 @@ const Login = () => {
     >
       <div className="loginCard" >
         <form onSubmit={loginUser}>
-          <h3 style={{ marginBottom: "10px", textAlign: 'center' }}>Welcome to Serverless Tweets</h3>
+          <h4 style={{ marginBottom: "10px", textAlign: 'center' }}>Welcome to Serverless Tweets</h4>
           <p>
             New to Serverless Tweet?{" "}
             <b
@@ -110,11 +110,12 @@ const Login = () => {
             <span
                 
                 style={{
-                  marginLeft: "-2.67rem",
-                  marginTop: "1.4rem",
+                  marginLeft: "-2.17rem",
+                  marginTop: "0.7rem",
                   cursor: "pointer",
                   outline: "none !",
                   color: '#363062',
+                  fontSize: '18px'
                 }}
               >
                 <FontAwesomeIcon icon={faEnvelope} />
@@ -135,11 +136,12 @@ const Login = () => {
               <span
                 onClick={toggleBtn}
                 style={{
-                  marginLeft: "-2.67rem",
-                  marginTop: "1.4rem",
+                  marginLeft: "-2.17rem",
+                  marginTop: "0.7rem",
                   cursor: "pointer",
                   outline: "none !",
                   color: '#363062',
+                  fontSize: '18px'
                 }}
               >
                 {passToggle ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}

@@ -50,7 +50,7 @@ const SignUp = () => {
         >
             <div className='signupCard' >
                 <form onSubmit={onSubmit}>
-                    <h2 style={{textAlign: 'center'}}>Sign Up</h2>
+                    <h4 style={{textAlign: 'center'}}>Sign Up</h4>
                     <div className='email'>
                         <label >UserName</label>
                         <input

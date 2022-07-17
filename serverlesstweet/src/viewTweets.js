@@ -32,8 +32,8 @@ const App = () => {
   const [allData, setAllData] = useState([]);
   const [commentUserId, setCommentUserId] = useState("");
 
-  const username = localStorage.getItem("userName");
-  const userName= username.split(' ')[0]
+  const userName = localStorage.getItem("userName");
+
   const userId = localStorage.getItem("userId");
 
   ///Pull all post data on page load
@@ -60,7 +60,7 @@ const App = () => {
 
   // View Comments
   const viewComments = async (id) => {
-    setCommentLoader(true)
+    setCommentLoader(true);
     setViewComment(true);
     setViewCommentId(id);
 
@@ -69,7 +69,7 @@ const App = () => {
     );
     if (data) {
       if (parseInt(data.status) === 200) {
-        setCommentLoader(false)
+        setCommentLoader(false);
         setCommentData(data.data.Items);
         console.log(data.data.Items);
         setLoading(false);
@@ -129,7 +129,7 @@ const App = () => {
 
   //View all my tweets
   const viewMyTweets = async () => {
-    setMyTweetsLoader(true)
+    setMyTweetsLoader(true);
     setMyTweets(true);
     const data = await axios.get(
       `https://fw209u8orf.execute-api.us-east-1.amazonaws.com/post/${userId}`
@@ -137,7 +137,7 @@ const App = () => {
     if (data) {
       if (parseInt(data.status) === 200) {
         setPostData(data.data.Items);
-        setMyTweetsLoader(false)
+        setMyTweetsLoader(false);
         setLoading(false);
       } else if (parseInt(data.status) === 400) {
         console.log("An error occured");
@@ -199,16 +199,16 @@ const App = () => {
     <div style={{ margin: 0 }}>
       <nav class="navbar navbar-expand-lg navbar-dark tweetnavbar px-md-5 ">
         <div class="container">
-          <p
+          <h2
             style={{
               fontFamily: "Smooch",
               fontSize: "28px",
-              color: '#fff',
-              margin: 0
+              color: "#fff",
+              margin: '10px',
             }}
           >
             Serverless Tweet
-          </p>
+          </h2>
           <button
             class="navbar-toggler"
             type="button"
@@ -219,7 +219,7 @@ const App = () => {
             aria-label="Toggle navigation"
           >
             <span>
-              <FontAwesomeIcon icon={faBars}/>
+              <FontAwesomeIcon icon={faBars} />
             </span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
@@ -236,8 +236,7 @@ const App = () => {
                 </a>
               </li>
 
-              {myTweets ?
-              myTweetsLoader? <div></div>: (
+              {myTweets ? (
                 <li
                   className="nav-item  "
                   style={{ cursor: "pointer" }}
@@ -266,15 +265,15 @@ const App = () => {
           </div>
         </div>
       </nav>
-     
+
       <div className="tweetwidth">
         <div style={{ margin: "50px auto" }}>
           {myTweets ? (
             <h2>My Tweets</h2>
           ) : (
-            <p style={{ margin: "0 auto", fontSize: '2vw' }}>
-              Hey {userName}, What's Happening ?
-            </p>
+            <h4 style={{ margin: "0 auto" }}>
+              Hey {userName.split(" ")[0]}, What's Happening ?
+            </h4>
           )}
         </div>
 
@@ -381,7 +380,7 @@ const App = () => {
           <Box
             style={{
               backgroundColor: "#fff",
-              width: '600px',
+              width: "600px",
               height: "400px",
               padding: "10px",
               position: "relative",
@@ -458,7 +457,7 @@ const App = () => {
           </Box>
         </Modal>
 
-        {loading ? (
+        {loading || myTweetsLoader ? (
           <>
             <div style={{ margin: "50px auto" }}>
               <Box sx={{ height: 600 }}>
@@ -497,11 +496,17 @@ const App = () => {
                   <div
                     style={{ display: "flex", justifyContent: "space-between" }}
                   >
-                    <div className='d-flex'>  <div className='tweetinitials'><p>{item.userName[0].toUpperCase()}</p></div><p>{item.userName}</p></div>
+                    <div className="d-flex">
+                      {" "}
+                      <div className="tweetinitials">
+                        <p>{item.userName[0].toUpperCase()}</p>
+                      </div>
+                      <h6 style={{margin: '10px'}}>{item.userName}</h6>
+                    </div>
                     {myTweets ? (
                       <div>
                         <FontAwesomeIcon
-                          label="View Project" 
+                          label="View Project"
                           style={{
                             fontSize: "15px",
                             color: "#363062",
@@ -524,63 +529,72 @@ const App = () => {
                         />
                       </div>
                     ) : (
-                      <i><p className="tweetdate">{format(item.date, "en_US")}</p></i>
+                      <i>
+                        <p className="tweetdate">
+                          {format(item.date, "en_US")}
+                        </p>
+                      </i>
                     )}
                   </div>
-                  
+
                   <p style={{ margin: "10px 0" }}>{item.content}</p>
-                  <div
-                    className='row'
-                    style={{ display: "row"}}
-                  >
-                    <div className= 'col-lg-4 col-md-12 ' style={{ marginTop: "10px" }}>
+                  <div className="row" style={{ display: "row" }}>
+                    <div
+                      className="col-lg-4 col-md-12 "
+                      style={{ marginTop: "10px" }}
+                    >
                       <p>
                         <b>comments:</b> {item.xyz}
                       </p>
                     </div>
-                    <div className= 'col-lg-8  col-md-12 d-flex justify-content-end'>
+                    <div className="col-lg-8  col-md-12 d-flex justify-content-end">
                       {viewComment ? (
                         <button
                           className="viewbutton"
                           onClick={() => setViewComment(false)}
                         >
-                         <p style={{color: 'black'}}>close comments</p> 
+                          <p style={{ color: "black" }}>close comments</p>
                         </button>
                       ) : (
                         <button
                           className="viewbutton"
                           onClick={() => viewComments(item.postId)}
                         >
-                          <p style={{color: 'black'}}>view comments</p>
+                          <p style={{ color: "black" }}>view comments</p>
                         </button>
                       )}
                       <button
                         onClick={() => createComment(item.postId, item.userId)}
                         className="viewbutton"
                       >
-                        <p style={{color: 'black'}}>Add a comment</p>
+                        <p style={{ color: "black" }}>Add a comment</p>
                       </button>
                     </div>
                   </div>
                 </div>
                 {viewComment && viewCommentId == item.postId ? (
-                  commentLoader? <div className= 'text-center'><CircularProgress style={{ width: "30px", color: "#363062" }} /></div>:
-                  item.xyz ? (
+                  commentLoader ? (
+                    <div className="text-center">
+                      <CircularProgress
+                        style={{ width: "30px", color: "#363062" }}
+                      />
+                    </div>
+                  ) : item.xyz ? (
                     <div
                       style={{
-                        width: "50%",
+                        
                         margin: "0 auto",
                         backgroundColor: "#fff",
-                        boxShadow: "10px 10px 10px rgba(0, 0, 0, 0.07)",
-                        padding: "0 15px",
+                        boxShadow: "1px 1px 10px 10px rgba(0, 0, 0, 0.04)",
+                        padding: "15px",
                       }}
                     >
-                      <p>Comments</p>
+                      <h6>Comments</h6>
                       {commentData.map((item) => {
                         return (
                           <div>
                             <hr />
-                            <h5>{item.userName}</h5>
+                            <h6>{item.userName}</h6>
                             <p>{item.comment}</p>
                           </div>
                         );
