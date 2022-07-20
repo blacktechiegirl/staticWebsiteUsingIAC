@@ -22,6 +22,7 @@ const App = () => {
   const [buttonLoad, setButtonLoad] = useState(false);
   const [modal, setModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [updateModal, setUpdateModal] = useState(false);
   const [userTweet, setUserTweet] = useState("");
   const [userComment, setUserComment] = useState("");
   const [myTweets, setMyTweets] = useState(false);
@@ -31,6 +32,7 @@ const App = () => {
   const [commentPostId, setCommentPostId] = useState("");
   const [allData, setAllData] = useState([]);
   const [commentUserId, setCommentUserId] = useState("");
+  const [userUpdate, setUserUpdate] = useState("");
 
   const userName = localStorage.getItem("userName");
 
@@ -44,9 +46,9 @@ const App = () => {
       );
       if (data) {
         if (parseInt(data.status) === 200) {
-          setAllData(data.data.Items);
-          setPostData(data.data.Items);
-          console.log(data.data.Items);
+          setAllData(data.data);
+          setPostData(data.data);
+          console.log(data.data);
           setLoading(false);
         } else if (parseInt(data.status) === 400) {
           console.log("An error occured");
@@ -70,8 +72,8 @@ const App = () => {
     if (data) {
       if (parseInt(data.status) === 200) {
         setCommentLoader(false);
-        setCommentData(data.data.Items);
-        console.log(data.data.Items);
+        setCommentData(data.data);
+        console.log(data.data);
         setLoading(false);
       } else if (parseInt(data.status) === 400) {
         console.log("An error occured");
@@ -102,8 +104,10 @@ const App = () => {
     );
     if (res) {
       if (parseInt(res.status) === 200) {
+        setPostData([res.data.params, ...postData] )
         setButtonLoad(false);
         setModal(false);
+        setUserTweet('')
         toast.success(res.data, {
           position: toast.POSITION.TOP_CENTER,
           autoClose: true,
@@ -136,7 +140,8 @@ const App = () => {
     );
     if (data) {
       if (parseInt(data.status) === 200) {
-        setPostData(data.data.Items);
+        console.log(data)
+        setPostData(data.data);
         setMyTweetsLoader(false);
         setLoading(false);
       } else if (parseInt(data.status) === 400) {
@@ -156,6 +161,7 @@ const App = () => {
 
   //Post Created Comment
   const postComment = async () => {
+    
     setButtonLoad(true);
     const commentId = uuidv4();
     const postId = commentPostId;
@@ -181,12 +187,14 @@ const App = () => {
       if (parseInt(res.status) === 200) {
         setButtonLoad(false);
         setCommentModal(false);
+        setUserComment('')
         console.log(res);
+        window.location.reload();
       } else if (parseInt(res.status) === 400) {
         console.log("An error occured");
       }
     } else {
-      console.log("error");
+      console.log("error")
     }
   };
 
@@ -194,6 +202,20 @@ const App = () => {
     setMyTweets(false);
     setPostData(allData);
   };
+
+// Update Tweet
+  const updateUserTweet = (item) => {
+    setUserUpdate(item)
+    setUpdateModal(true)
+  }
+
+  const updateFunction =() =>{
+    console.log(userUpdate)
+
+    const data = {
+      content: userUpdate
+    }
+  }
 
   return (
     <div style={{ margin: 0 }}>
@@ -457,6 +479,97 @@ const App = () => {
           </Box>
         </Modal>
 
+
+        <Modal
+          open={updateModal}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Box
+            style={{
+              backgroundColor: "#fff",
+              width: "600px",
+              height: "400px",
+              padding: "10px",
+              position: "relative",
+            }}
+          >
+            <div
+              style={{ display: "flex", justifyContent: "end" }}
+              onClick={() => setUpdateModal(false)}
+            >
+              <h3
+                style={{
+                  cursor: "pointer",
+                  fontSize: "18px",
+                  color: "#d9d9d9",
+                }}
+              >
+                x
+              </h3>
+            </div>
+            <div>
+              <div style={{ textAlign: "center", margin: "10px" }}>
+                <h3>Update Tweet</h3>
+              </div>
+              <textarea
+                defaultValue={userUpdate}
+                onChange={(event) => setUserUpdate(event.target.value)}
+                style={{
+                  fontSize: "18px",
+                  padding: "10px",
+                  width: "96%",
+                  height: "200px",
+                  margin: "10px",
+                  borderRadius: "8px",
+                  border: "1px solid #D9D9D9",
+                }}
+              ></textarea>
+            </div>
+            {buttonLoad ? (
+              <div
+                className="butloadingButton"
+                style={{
+                  width: "20%",
+                  position: "absolute",
+                  bottom: 0,
+                  right: "20px",
+                  margin: 0,
+                }}
+              >
+                <button type="submit">
+                  <CircularProgress style={{ width: "30px", color: "#fff" }} />
+                </button>
+                `
+              </div>
+            ) : (
+              <div
+                className="loginButton"
+                style={{
+                  width: "20%",
+                  position: "absolute",
+                  bottom: "10px",
+                  right: "20px",
+                }}
+              >
+                <button
+                  className="loginButton"
+                  onClick={() => {
+                    updateFunction();
+                  }}
+                >
+                  Update
+                </button>
+              </div>
+            )}
+          </Box>
+        </Modal>
+
         {loading || myTweetsLoader ? (
           <>
             <div style={{ margin: "50px auto" }}>
@@ -507,10 +620,12 @@ const App = () => {
                       <div>
                         <FontAwesomeIcon
                           label="View Project"
+                          onClick={ () => updateUserTweet(item.content)}
                           style={{
                             fontSize: "15px",
                             color: "#363062",
                             margin: "5px",
+                            cursor: "pointer"
                           }}
                           icon={faPen}
                         />
@@ -544,7 +659,7 @@ const App = () => {
                       style={{ marginTop: "10px" }}
                     >
                       <p>
-                        <b>comments:</b> {item.xyz}
+                        <b>comments:</b> {item.comments}
                       </p>
                     </div>
                     <div className="col-lg-8  col-md-12 d-flex justify-content-end">
@@ -579,7 +694,7 @@ const App = () => {
                         style={{ width: "30px", color: "#363062" }}
                       />
                     </div>
-                  ) : item.xyz ? (
+                  ) : item.comments ? (
                     <div
                       style={{
                         

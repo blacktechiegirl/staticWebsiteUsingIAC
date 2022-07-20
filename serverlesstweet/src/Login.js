@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import userpool from "./userpool";
 import { toast } from "react-toastify";
-import { Alert } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { ToastContainer } from "react-toastify";
 import { faEye, faEyeSlash, faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -66,7 +65,7 @@ const Login = () => {
       },
       onFailure: (err) => {
         setLoading(false);
-        toast.error(err.message, {
+        toast.error('Incorrect Username or Password', {
           position: toast.POSITION.TOP_CENTER,
         });
         console.log("onFailure", err);
@@ -147,6 +146,9 @@ const Login = () => {
                 {passToggle ? <FontAwesomeIcon icon={faEye} /> : <FontAwesomeIcon icon={faEyeSlash} />}
               </span>
             </div>
+          </div>
+          <div className="d-flex justify-content-end reset" style={{fontSize: '13px', color: '#949393', cursor: 'pointer'}} onClick={()=> {navigate('/reset/password')}}>
+            <i><p style={{margin: 0}}>forgot password?</p></i>
           </div>
           {loading ? (
             <div className="loadingButton">
